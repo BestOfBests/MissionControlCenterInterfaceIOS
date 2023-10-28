@@ -14,7 +14,6 @@ class MainObserver: ObservableObject {
 struct ContentView: View {
     @State private var activeTab: Tab = .planets
     @State private var allTabs: [AnimatedTab] = Tab.allCases.compactMap { AnimatedTab(tab: $0) }
-    @State private var rotatino: CGFloat = .zero
     @StateObject var mainObserver = MainObserver()
 
     var body: some View {
@@ -26,7 +25,14 @@ struct ContentView: View {
                 .setUpTab(.planets)
 
                 NavigationStack {
-                    DynamicRectangle(rotatino: $rotatino, title: "Начать\nуправление")
+                    NavigationLink {
+                        MapView()
+                            .task {
+                                mainObserver.showTabBar = false
+                            }
+                    } label: {
+                        DynamicRectangle(title: "Начать\nуправление")
+                    }
                 }
                 .setUpTab(.controller)
 
@@ -42,12 +48,7 @@ struct ContentView: View {
                 CustomTabBar()
             }
         }
-        .onAppear {
-            FetchData()
-            withAnimation(.linear(duration: 5).repeatForever(autoreverses: false)) {
-                rotatino = .rotation
-            }
-        }
+        .onAppear(perform: FetchData)
         .environmentObject(mainObserver)
     }
 }

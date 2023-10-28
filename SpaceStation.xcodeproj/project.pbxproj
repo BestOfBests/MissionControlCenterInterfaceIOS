@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C49873C2AED9696002770AD /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C49873B2AED9696002770AD /* Test.swift */; };
 		2CD8E5D12AED1A62006D66C3 /* SpaceStationApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8E5D02AED1A62006D66C3 /* SpaceStationApp.swift */; };
 		2CD8E5D32AED1A62006D66C3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8E5D22AED1A62006D66C3 /* ContentView.swift */; };
 		2CD8E5D52AED1A63006D66C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CD8E5D42AED1A63006D66C3 /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C49873B2AED9696002770AD /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		2CD8E5CD2AED1A62006D66C3 /* SpaceStation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceStation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CD8E5D02AED1A62006D66C3 /* SpaceStationApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceStationApp.swift; sourceTree = "<group>"; };
 		2CD8E5D22AED1A62006D66C3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -88,6 +90,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C49873A2AED8ED9002770AD /* DynamicRectangle */ = {
+			isa = PBXGroup;
+			children = (
+				2CD8E6202AED432F006D66C3 /* DynamicRectangle.swift */,
+			);
+			path = DynamicRectangle;
+			sourceTree = "<group>";
+		};
 		2CD8E5C42AED1A61006D66C3 = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +125,7 @@
 				2CD8E5E82AED298F006D66C3 /* Extensions */,
 				2CD8E5E12AED27C7006D66C3 /* Network */,
 				2CD8E5DE2AED1B5B006D66C3 /* ViewControllers */,
+				2C49873B2AED9696002770AD /* Test.swift */,
 			);
 			path = SpaceStation;
 			sourceTree = "<group>";
@@ -178,10 +189,10 @@
 		2CD8E6022AED3289006D66C3 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				2CD8E6202AED432F006D66C3 /* DynamicRectangle.swift */,
+				2CD8E6112AED33F8006D66C3 /* ConfigurationRequirements.swift */,
+				2C49873A2AED8ED9002770AD /* DynamicRectangle */,
 				2CD8E6132AED365A006D66C3 /* AnimatedTabBar */,
 				2CD8E6152AED365A006D66C3 /* Shimmers */,
-				2CD8E6112AED33F8006D66C3 /* ConfigurationRequirements.swift */,
 				2CD8E60A2AED33CE006D66C3 /* MKRImageView */,
 			);
 			path = Components;
@@ -309,6 +320,7 @@
 				2CD8E5F62AED298F006D66C3 /* Image+Ext.swift in Sources */,
 				2CD8E6102AED33CE006D66C3 /* MKRImageView.swift in Sources */,
 				2CD8E5E72AED27E3006D66C3 /* Network.swift in Sources */,
+				2C49873C2AED9696002770AD /* Test.swift in Sources */,
 				2CD8E61A2AED365A006D66C3 /* ShimmerButton.swift in Sources */,
 				2CD8E6192AED365A006D66C3 /* ShimmeringView.swift in Sources */,
 				2CD8E5F72AED298F006D66C3 /* PreferenceKey.swift in Sources */,

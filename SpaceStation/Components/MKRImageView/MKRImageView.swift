@@ -50,11 +50,30 @@ struct MKRImageView: View {
 private extension MKRImageView {
     
     func Placeholder() -> some View {
-        ShimmeringView()
-            .frame(width: configuration.shimmerSize.width, height: configuration.shimmerSize.height)
-            .cornerRadius(configuration.imageCornerRadius)
+        ZStack {
+            ShimmeringView()
+                .frame(width: configuration.shimmerSize.width, height: configuration.shimmerSize.height)
+                .cornerRadius(configuration.imageCornerRadius)
+                .mask {
+                    Image("saturn")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: configuration.shimmerSize.width)
+                }
+            
+            Image("space")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 200, height: 200)
+                .mask {
+                    Image("questionMark")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: configuration.shimmerSize.width * 0.4)
+                }
+        }
     }
-    
+
     func EmptyImageView() -> some View {
         Rectangle()
             .fill(LinearGradient.kingGradient.opacity(0.2))
@@ -81,6 +100,7 @@ struct MKRImage_Previews: PreviewProvider {
                             imageSize: .init(width: 300, height: 200),
                             imageCornerRadius: 20,
                             imageBorderWidth: 2,
+                            shimmerSize: CGSize(edge: 250),
                             imageBorderColor: .pink,
                             placeholderLineWidth: 2,
                             placeholderImageSize: 30

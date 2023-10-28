@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DynamicRectangle: View {
     @EnvironmentObject var mainObserver: MainObserver
-    @Binding var rotatino: CGFloat
+    @State private var rotatino: CGFloat = .zero
     let title: String!
 
     var body: some View {
@@ -24,20 +24,12 @@ struct DynamicRectangle: View {
                         .frame(width: .maskWidth, height: .maskHeight)
                 }
 
-            NavigationLink {
-                MapView()
-                    .task {
-                        mainObserver.showTabBar = false
-                    }
-            } label: {
-                Text(title)
-                    .font(.title)
-                    .foregroundStyle(Color.strokeColor)
-                    .multilineTextAlignment(.center)
-                    .bold()
-            }
+            Text(title)
+                .font(.title)
+                .foregroundStyle(Color.strokeColor)
+                .bold()
         }
-        .onAppear {
+        .task {
             withAnimation(.linear(duration: 5).repeatForever(autoreverses: false)) {
                 rotatino = .rotation
             }
@@ -48,7 +40,7 @@ struct DynamicRectangle: View {
 // MARK: - Preview
 
 #Preview {
-    DynamicRectangle(rotatino: .constant(.zero), title: "Начать\nуправление")
+    DynamicRectangle(title: "Начать\nуправление")
         .environmentObject(MainObserver())
 }
 

@@ -22,6 +22,7 @@ struct MapView: View {
             mainObserver.showTabBar = true
         }
         .onAppear {
+            // TODO: Получать планеты
             planets = .planets
         }
     }
@@ -93,10 +94,10 @@ private extension [PlanetModel] {
 
     static let planets: [PlanetModel] = [
         .init(id: 0, name: "Планета 1", description: nil, discoveringDate: nil, imageURL: .saturn, square: nil, coordinates: .init(x: 0, y: 0)),
-        .init(id: 1, name: "Планета 2", description: nil, discoveringDate: nil, imageURL: .saturn, square: nil, coordinates: .init(x: 0, y: 750)),
-        .init(id: 2, name: "Планета 3", description: nil, discoveringDate: nil, imageURL: .saturn, square: nil, coordinates: .init(x: 350, y: 0)),
-        .init(id: 3, name: "Планета 4", description: nil, discoveringDate: nil, imageURL: .saturn, square: nil, coordinates: .init(x: 100, y: 100)),
-        .init(id: 4, name: "Планета 5", description: nil, discoveringDate: nil, imageURL: .saturn, square: nil, coordinates: .init(x: 100, y: 500)),
-        .init(id: 5, name: "Планета 6", description: nil, discoveringDate: nil, imageURL: .saturn, square: nil, coordinates: .init(x: 100, y: 0)),
+//        .init(id: 1, name: "Планета 2", description: nil, discoveringDate: nil, imageURL: .saturn, square: nil, coordinates: .init(x: 0, y: 750)),
+//        .init(id: 2, name: "Планета 3", description: nil, discoveringDate: nil, imageURL: .saturn, square: nil, coordinates: .init(x: 350, y: 0)),
+//        .init(id: 3, name: "Планета 4", description: nil, discoveringDate: nil, imageURL: .saturn, square: nil, coordinates: .init(x: 100, y: 100)),
+//        .init(id: 4, name: "Планета 5", description: nil, discoveringDate: nil, imageURL: .saturn, square: nil, coordinates: .init(x: 100, y: 500)),
+//        .init(id: 5, name: "Планета 6", description: nil, discoveringDate: nil, imageURL: .saturn, square: nil, coordinates: .init(x: 100, y: 0)),
     ]
 }
