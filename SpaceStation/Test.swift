@@ -8,17 +8,28 @@
 import SwiftUI
 
 struct Test: View {
+    @State private var currentAmmount: CGFloat = .zero
+
     var body: some View {
-        Image("space")
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(width: 200, height: 200)
-            .mask {
-                Image("questionMark")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 300 * 0.5)
-            }
+        VStack(spacing: 0) {
+            ScrollView([.horizontal, .vertical], showsIndicators: false) {
+                    Image("space")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 3500)
+                        .scaleEffect(1 + currentAmmount)
+                        .gesture(
+                            MagnificationGesture()
+                                .onChanged { value in
+                                    print("value: \(value)")
+                                    currentAmmount = value - 1
+                                }
+                                .onEnded { _ in
+                                    currentAmmount = 0
+                                }
+                        )
+                }
+        }
     }
 }
 
