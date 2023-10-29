@@ -12,23 +12,27 @@ struct Test: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            ScrollView([.horizontal, .vertical], showsIndicators: false) {
-                    Image("space")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 3500)
-                        .scaleEffect(1 + currentAmmount)
-                        .gesture(
-                            MagnificationGesture()
-                                .onChanged { value in
-                                    print("value: \(value)")
-                                    currentAmmount = value - 1
-                                }
-                                .onEnded { _ in
-                                    currentAmmount = 0
-                                }
-                        )
-                }
+
+        }
+        .onAppear(perform: FetchData)
+    }
+}
+
+private extension Test {
+
+    func FetchData() {
+        NetworkService.shared.request(
+            router: .station,
+            method: .get,
+            type: StationStateEntity.self,
+            parameters: nil
+        ) { result in
+            switch result {
+            case .success(let info):
+                print(info)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
     }
 }

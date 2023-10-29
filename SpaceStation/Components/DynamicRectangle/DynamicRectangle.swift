@@ -23,7 +23,7 @@ struct DynamicRectangle: View {
                         .stroke(lineWidth: .lineWidth)
                         .frame(width: .maskWidth, height: .maskHeight)
                 }
-
+            
             Text(title)
                 .font(.title)
                 .foregroundStyle(Color.strokeColor)

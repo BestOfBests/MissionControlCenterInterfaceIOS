@@ -20,7 +20,6 @@ struct NetworkService {
         let urlString = router.endpoint
         guard let url = urlString.toURL else { 
             throw URLError(.badURL) }
-
         var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         if let params = parameters {

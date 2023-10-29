@@ -7,15 +7,11 @@
 
 import SwiftUI
 
-class MainObserver: ObservableObject {
-    @Published var showTabBar: Bool = true
-}
-
 struct ContentView: View {
     @State private var activeTab: Tab = .planets
     @State private var allTabs: [AnimatedTab] = Tab.allCases.compactMap { AnimatedTab(tab: $0) }
     @StateObject var mainObserver = MainObserver()
-
+    
     var body: some View {
         VStack(spacing: 0) {
             TabView(selection: $activeTab) {
@@ -25,25 +21,32 @@ struct ContentView: View {
                 .setUpTab(.planets)
 
                 NavigationStack {
-                    NavigationLink {
-                        MapView()
-                            .task {
-                                mainObserver.showTabBar = false
-                            }
-                    } label: {
-                        DynamicRectangle(title: "Начать\nуправление")
+                    VStack {
+                        NavigationLink {
+                            MapView()
+                                .toolbar(.hidden, for: .tabBar)
+                                .task {
+                                    mainObserver.showTabBar = false
+                                }
+                        } label: {
+                            DynamicRectangle(title: "Начать\nуправление")
+                        }
+
+                        LottieView(lottieFile: "spaceGirl")
+                            .frame(width: 300, height: 300)
                     }
                 }
                 .setUpTab(.controller)
 
                 NavigationStack {
                     VStack {
-
+                        StationView()
                     }
                     .navigationTitle(Tab.house.title)
                 }
                 .setUpTab(.house)
             }
+
             if mainObserver.showTabBar {
                 CustomTabBar()
             }
@@ -53,18 +56,20 @@ struct ContentView: View {
     }
 }
 
-private extension ContentView {
+// MARK: - Network
 
+private extension ContentView {
+    
     func FetchData() {
         NetworkService.shared.request(
-            router: .station,
+            router: .planets,
             method: .get,
-            type: StationStateEntity.self,
-            parameters: nil
+            type: [PlanetEntity].self,
+            parameters: ["scanRadius": -1]
         ) { result in
             switch result {
-            case .success(let station):
-                print(station)
+            case .success(let planets):
+                mainObserver.planets = planets.map { $0.mapper }
             case .failure(let error):
                 print(error)
             }
@@ -100,7 +105,6 @@ private extension ContentView {
                 .frame(maxWidth: .infinity)
                 .foregroundStyle(activeTab == tab ? Color.primary : Color.gray.opacity(0.8))
                 .padding(.top, 5)
-//                .padding(.bottom, 10)
                 .contentShape(.rect)
                 .onTapGesture {
                     withAnimation(.bouncy, completionCriteria: .logicallyComplete) {

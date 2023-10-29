@@ -25,30 +25,29 @@ struct PlanetView: View {
 
             let imageSize = CGSize(edge: $0.size.width * 0.8)
             MKRImageView(
-                configuration:
-                        .basic(
-                            kind: .custom(
-                                url: planet.imageURL,
-                                mode: .fit,
-                                imageSize: imageSize,
-                                imageCornerRadius: imageSize.width / 2,
-                                shimmerSize: CGSize(width: imageSize.width, height: imageSize.width * 0.5),
-                                placeholderImageSize: 40
-                            )
-                        )
-            )
-                .frame(width: _size.width, height: _size.height)
-                .scaleEffect(
-                    reducedScale < 0
-                    ? 0.001
-                    : reducedScale, anchor: .init(
-                        x: 0.5,
-                        y: 1 - (currentSizeScale / 2.4)
+                configuration: .basic(
+                    kind: .custom(
+                        url: planet.imageURL,
+                        mode: .fit,
+                        imageSize: imageSize,
+                        imageCornerRadius: imageSize.width / 2,
+                        shimmerSize: CGSize(width: imageSize.width, height: imageSize.width * 0.5),
+                        placeholderImageSize: 40
                     )
                 )
-                .scaleEffect(offset > 0 ? 1 + currentSizeScale : 1, anchor: .top)
-                .offset(y: offset > 0 ? currentSizeScale * 200 : 0)
-                .offset(y: currentSizeScale * -130)
+            )
+            .frame(width: _size.width, height: _size.height)
+            .scaleEffect(
+                reducedScale < 0
+                ? 0.001
+                : reducedScale, anchor: .init(
+                    x: 0.5,
+                    y: 1 - (currentSizeScale / 2.4)
+                )
+            )
+            .scaleEffect(offset > 0 ? 1 + currentSizeScale : 1, anchor: .top)
+            .offset(y: offset > 0 ? currentSizeScale * 200 : 0)
+            .offset(y: currentSizeScale * -130)
 
         }
         .frame(height: cardSize)
@@ -65,5 +64,5 @@ struct PlanetView: View {
 
 private extension PlanetModel {
 
-    static var mockPlanet = PlanetModel(id: 0, name: "Планета 1", description: nil, discoveringDate: nil, imageURL: .saturn, square: nil, coordinates: .init(x: 10, y: 10))
+    static var mockPlanet = PlanetModel(id: 0, name: "Планета 1", description: nil, discoveryDate: nil, imageURL: .saturn, radius: nil, mass: nil, coordinates: .init(x: -100, y: -250))
 }

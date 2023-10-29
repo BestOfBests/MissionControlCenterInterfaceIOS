@@ -7,16 +7,17 @@
 
 import Foundation
 
-// MARK: Entity
+// MARK: - Entity
 
 struct PlanetEntity: Decodable {
     let id: Int
     let name: String?
     let description: String?
-    let discoveringDate: String?
-    let imageURL: String?
-    let square: Double?
-    let coordinates: PlanetCoorinateEntity
+    let discoveryDate: String?
+    let imageUrl: String?
+    let radius: Double?
+    let mass: Double?
+    let position: PlanetCoorinateEntity
 }
 
 struct PlanetCoorinateEntity: Decodable {
@@ -24,15 +25,16 @@ struct PlanetCoorinateEntity: Decodable {
     let y: Double
 }
 
-// MARK: View Model
+// MARK: - View Model
 
 struct PlanetModel: Identifiable {
     let id: Int
     let name: String?
     let description: String?
-    let discoveringDate: String?
+    let discoveryDate: String?
     let imageURL: URL?
-    let square: Double?
+    let radius: Double?
+    let mass: Double?
     let coordinates: PlanetCoorinateModel
 }
 
@@ -56,10 +58,34 @@ extension PlanetEntity {
             id: id,
             name: name,
             description: description,
-            discoveringDate: discoveringDate,
-            imageURL: imageURL?.toURL,
-            square: square,
-            coordinates: coordinates.mapper
+            discoveryDate: discoveryDate,
+            imageURL: (.serverHost + "/api/StaticData/\(imageUrl ?? "")").toURL,
+            radius: radius,
+            mass: mass,
+            coordinates: position.mapper
         )
+    }
+}
+
+// MARK: - New coordinates
+
+extension [PlanetModel] {
+
+    func newCoordinates(x RocketX: Double, y RocketY: Double) -> Self {
+        self.map {
+            PlanetModel(
+                id: $0.id,
+                name: $0.name,
+                description: $0.description,
+                discoveryDate: $0.discoveryDate,
+                imageURL: $0.imageURL,
+                radius: $0.radius,
+                mass: $0.mass,
+                coordinates: PlanetCoorinateModel(
+                    x: $0.coordinates.x - RocketX,
+                    y: $0.coordinates.y - RocketY
+                )
+            )
+        }
     }
 }

@@ -40,6 +40,11 @@
 		2CD8E61C2AED392E006D66C3 /* PlanetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8E61B2AED392E006D66C3 /* PlanetView.swift */; };
 		2CD8E61F2AED3C6B006D66C3 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8E61E2AED3C6B006D66C3 /* MapView.swift */; };
 		2CD8E6212AED432F006D66C3 /* DynamicRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD8E6202AED432F006D66C3 /* DynamicRectangle.swift */; };
+		2CFBC0352AEDD03F009AFD41 /* StationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFBC0342AEDD03F009AFD41 /* StationView.swift */; };
+		2CFBC0382AEDD444009AFD41 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 2CFBC0372AEDD444009AFD41 /* Lottie */; };
+		2CFBC03C2AEDDA3B009AFD41 /* spaceGirl.json in Resources */ = {isa = PBXBuildFile; fileRef = 2CFBC03B2AEDDA3B009AFD41 /* spaceGirl.json */; };
+		2CFBC03E2AEDDAAE009AFD41 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFBC03D2AEDDAAE009AFD41 /* LottieView.swift */; };
+		2CFBC0422AEDDB60009AFD41 /* MainObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFBC0412AEDDB60009AFD41 /* MainObserver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +82,10 @@
 		2CD8E61B2AED392E006D66C3 /* PlanetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetView.swift; sourceTree = "<group>"; };
 		2CD8E61E2AED3C6B006D66C3 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		2CD8E6202AED432F006D66C3 /* DynamicRectangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicRectangle.swift; sourceTree = "<group>"; };
+		2CFBC0342AEDD03F009AFD41 /* StationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationView.swift; sourceTree = "<group>"; };
+		2CFBC03B2AEDDA3B009AFD41 /* spaceGirl.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = spaceGirl.json; sourceTree = "<group>"; };
+		2CFBC03D2AEDDAAE009AFD41 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		2CFBC0412AEDDB60009AFD41 /* MainObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainObserver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CFBC0382AEDD444009AFD41 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +129,7 @@
 			children = (
 				2CD8E5D02AED1A62006D66C3 /* SpaceStationApp.swift */,
 				2CD8E5D42AED1A63006D66C3 /* Assets.xcassets */,
+				2CFBC03B2AEDDA3B009AFD41 /* spaceGirl.json */,
 				2CD8E6022AED3289006D66C3 /* Components */,
 				2CD8E5FF2AED2E54006D66C3 /* Models */,
 				2CD8E5D62AED1A63006D66C3 /* Preview Content */,
@@ -141,9 +152,10 @@
 		2CD8E5DE2AED1B5B006D66C3 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				2CFBC03F2AEDDB4E009AFD41 /* MainView */,
+				2CFBC0332AEDD02F009AFD41 /* StationView */,
 				2CD8E6032AED329F006D66C3 /* PlanetView */,
 				2CD8E61D2AED3C39006D66C3 /* MapView */,
-				2CD8E5D22AED1A62006D66C3 /* ContentView.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -194,6 +206,7 @@
 				2CD8E6132AED365A006D66C3 /* AnimatedTabBar */,
 				2CD8E6152AED365A006D66C3 /* Shimmers */,
 				2CD8E60A2AED33CE006D66C3 /* MKRImageView */,
+				2CFBC03D2AEDDAAE009AFD41 /* LottieView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -242,6 +255,39 @@
 			path = MapView;
 			sourceTree = "<group>";
 		};
+		2CFBC0332AEDD02F009AFD41 /* StationView */ = {
+			isa = PBXGroup;
+			children = (
+				2CFBC0342AEDD03F009AFD41 /* StationView.swift */,
+			);
+			path = StationView;
+			sourceTree = "<group>";
+		};
+		2CFBC03F2AEDDB4E009AFD41 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				2CFBC0402AEDDB56009AFD41 /* Model */,
+				2CFBC0432AEDDB6E009AFD41 /* View */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		2CFBC0402AEDDB56009AFD41 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2CFBC0412AEDDB60009AFD41 /* MainObserver.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2CFBC0432AEDDB6E009AFD41 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2CD8E5D22AED1A62006D66C3 /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -258,6 +304,9 @@
 			dependencies = (
 			);
 			name = SpaceStation;
+			packageProductDependencies = (
+				2CFBC0372AEDD444009AFD41 /* Lottie */,
+			);
 			productName = SpaceStation;
 			productReference = 2CD8E5CD2AED1A62006D66C3 /* SpaceStation.app */;
 			productType = "com.apple.product-type.application";
@@ -286,6 +335,9 @@
 				Base,
 			);
 			mainGroup = 2CD8E5C42AED1A61006D66C3;
+			packageReferences = (
+				2CFBC0362AEDD443009AFD41 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			productRefGroup = 2CD8E5CE2AED1A62006D66C3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -302,6 +354,7 @@
 			files = (
 				2CD8E5D82AED1A63006D66C3 /* Preview Assets.xcassets in Resources */,
 				2CD8E5D52AED1A63006D66C3 /* Assets.xcassets in Resources */,
+				2CFBC03C2AEDDA3B009AFD41 /* spaceGirl.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,16 +374,19 @@
 				2CD8E6102AED33CE006D66C3 /* MKRImageView.swift in Sources */,
 				2CD8E5E72AED27E3006D66C3 /* Network.swift in Sources */,
 				2C49873C2AED9696002770AD /* Test.swift in Sources */,
+				2CFBC0352AEDD03F009AFD41 /* StationView.swift in Sources */,
 				2CD8E61A2AED365A006D66C3 /* ShimmerButton.swift in Sources */,
 				2CD8E6192AED365A006D66C3 /* ShimmeringView.swift in Sources */,
 				2CD8E5F72AED298F006D66C3 /* PreferenceKey.swift in Sources */,
 				2CD8E5FE2AED298F006D66C3 /* URL+Ext.swift in Sources */,
+				2CFBC0422AEDDB60009AFD41 /* MainObserver.swift in Sources */,
 				2CD8E5F82AED298F006D66C3 /* MKRColors+Additions.swift in Sources */,
 				2CD8E5FA2AED298F006D66C3 /* UIColor+Ext.swift in Sources */,
 				2CD8E5FD2AED298F006D66C3 /* LinearGradient+Ext.swift in Sources */,
 				2CD8E61F2AED3C6B006D66C3 /* MapView.swift in Sources */,
 				2CD8E60F2AED33CE006D66C3 /* MRKImageView+Defaults.swift in Sources */,
 				2CD8E6092AED3340006D66C3 /* Double+Ext.swift in Sources */,
+				2CFBC03E2AEDDAAE009AFD41 /* LottieView.swift in Sources */,
 				2CD8E6182AED365A006D66C3 /* AnimatedTabBar.swift in Sources */,
 				2CD8E60E2AED33CE006D66C3 /* MKRImageView+Configuration.swift in Sources */,
 				2CD8E5F92AED298F006D66C3 /* String+Ext.swift in Sources */,
@@ -484,6 +540,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -513,6 +570,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -548,6 +606,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2CFBC0362AEDD443009AFD41 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.3.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2CFBC0372AEDD444009AFD41 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2CFBC0362AEDD443009AFD41 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2CD8E5C52AED1A61006D66C3 /* Project object */;
 }
