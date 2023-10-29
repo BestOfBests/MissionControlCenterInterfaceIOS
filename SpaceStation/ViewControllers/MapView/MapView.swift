@@ -338,7 +338,7 @@ private extension CGFloat {
 
     static let buttonSize: CGFloat = 40
     static let planetSize: CGFloat = 150
-    static let shipSize: CGFloat = 90
+    static let shipSize: CGFloat = 60
     static let screenScrollWidth: CGFloat = 700
     static let screenScrollHeigth: CGFloat = 2000
 }
