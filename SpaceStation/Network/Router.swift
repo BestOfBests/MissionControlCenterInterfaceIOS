@@ -47,5 +47,5 @@ private extension String {
 
 extension String {
 
-    static let serverHost = "http://192.168.43.18:2023"
+    static let serverHost = "http://192.168.29.106:2023"
 }

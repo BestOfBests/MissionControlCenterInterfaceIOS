@@ -77,9 +77,10 @@ private extension MapView {
                             image
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .frame(edge: .planetSize)
+                                .frame(edge: (planet.radius ?? 0) / 30)
                                 .offset(x: xOffset, y: yOffset)
                                 .id(planet.id)
+
                         } placeholder: {
                             ShimmeringView()
                                 .frame(edge: 130)
@@ -157,7 +158,11 @@ private extension MapView {
             switch result {
             case .success(let info):
                 station = info.mapper
-                mainObserver.planets = ConstPlanets.newCoordinates(
+                guard let pl = ConstPlanets else { 
+                    print("pl is nil")
+                    return
+                }
+                mainObserver.planets = pl.newCoordinates(
                     x: station.transform.x,
                     y: station.transform.y
                 )
@@ -233,7 +238,7 @@ private extension MapView {
 private extension MapView {
 
     func Post1() {
-        guard let url = URL(string: "http://192.168.43.18:2023/api/Station/rotationSpeed") else {
+        guard let url = URL(string: "http://192.168.29.106:2023/api/Station/rotationSpeed") else {
             print("ERROR: url")
             return
         }
@@ -260,7 +265,7 @@ private extension MapView {
     }
 
     func Post2() {
-        guard let url = URL(string: "http://192.168.43.18:2023/api/Station/rotationSpeed") else {
+        guard let url = URL(string: "http://192.168.29.106:2023/api/Station/rotationSpeed") else {
             print("ERROR: url")
             return
         }
@@ -288,7 +293,7 @@ private extension MapView {
 
     func Post3(_ speed: Double) {
         print("CURRENT SPEED \(speed)")
-        guard let url = URL(string: "http://192.168.43.18:2023/api/Station/linearSpeed") else {
+        guard let url = URL(string: "http://192.168.29.106:2023/api/Station/linearSpeed") else {
             print("ERROR: url")
             return
         }
