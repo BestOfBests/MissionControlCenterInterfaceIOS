@@ -16,6 +16,7 @@ struct MapView: View {
     @State private var timer: Timer?
     @State private var showButtons = true
     @State private var showView = false
+    @State private var errorMessage = "error message"
 
     var body: some View {
         VStack{
@@ -31,33 +32,32 @@ struct MapView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 200)
-                    Text("Error")
-                        .font(.title3)
+                    Text(errorMessage)
+                        .font(.footnote)
                 }
             }
         }
-            .onDisappear {
-                mainObserver.showTabBar = true
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        proxy?.scrollTo(String.rocketProxyName, anchor: .center)
-                    }) {
-                        Image(systemName: "location.fill.viewfinder")
-                    }
+        .onDisappear {
+            mainObserver.showTabBar = true
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    proxy?.scrollTo(String.rocketProxyName, anchor: .center)
+                }) {
+                    Image(systemName: "location.fill.viewfinder")
                 }
             }
-            .onAppear {
-                FetchPlanets()
-                timer = Timer(timeInterval: 0.1, repeats: true) { _ in
-                    FetchRocket()
-                }
-                RunLoop.main.add(timer!, forMode: .common)
+        }
+        .onAppear {
+            FetchPlanets()
+            timer = Timer(timeInterval: 0.1, repeats: true) { _ in
+                FetchRocket()
             }
-            .navigationTitle("Управление")
-            .toolbar(.hidden, for: .tabBar)
-
+            RunLoop.main.add(timer!, forMode: .common)
+        }
+        .navigationTitle("Управление")
+        .toolbar(.hidden, for: .tabBar)
     }
 }
 
@@ -147,7 +147,7 @@ private extension MapView {
 // MARK: - Functions
 
 private extension MapView {
-    
+
     func FetchRocket() {
         NetworkService.shared.request(
             router: .station,
@@ -158,8 +158,9 @@ private extension MapView {
             switch result {
             case .success(let info):
                 station = info.mapper
-                guard let pl = ConstPlanets else { 
-                    print("pl is nil")
+                guard let pl = ConstPlanets else {
+                    errorMessage = "Планеты не найдены"
+                    showView = false
                     return
                 }
                 mainObserver.planets = pl.newCoordinates(
@@ -167,7 +168,8 @@ private extension MapView {
                     y: station.transform.y
                 )
             case .failure(let error):
-                print(error.localizedDescription)
+                errorMessage = error.localizedDescription
+                showView = false
             }
         }
     }
@@ -197,38 +199,34 @@ private extension MapView {
                         )
                         showView = true
                     case .failure(let error):
-                        print(error)
+                        errorMessage = error.localizedDescription
+                        showView = false
                     }
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                errorMessage = error.localizedDescription
+                showView = false
             }
         }
-    }
-
-    func FetchData() {
-        showView = true
     }
 
     func ButtonControlAction(_ imageName: String) {
         switch imageName {
         case "stop.circle":
             print("stop")
-            Post3((station.transform.linearSpeed ?? 0) - 10)
+            ChangeSpeed((station.transform.linearSpeed ?? 0) - 10)
 
         case "chevron.left.circle":
             print("left")
-            Post1()
+            ChangeDirection(-10)
 
         case "flame.circle":
             print("Fire")
-            let speed = station.transform.linearSpeed ?? 0
-            print("speed \(speed)")
-            Post3(speed + 10)
+            ChangeSpeed((station.transform.linearSpeed ?? 0) + 10)
 
         default:
             print("right")
-            Post2()
+            ChangeDirection(10)
         }
     }
 }
@@ -237,86 +235,35 @@ private extension MapView {
 
 private extension MapView {
 
-    func Post1() {
-        guard let url = URL(string: "http://192.168.29.106:2023/api/Station/rotationSpeed") else {
-            print("ERROR: url")
-            return
-        }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        do {
-            let bodyData = try JSONSerialization.data(
-                withJSONObject: ["requiredRotationSpeedClockwiseDegrees": -10]
-            )
-            request.httpBody = bodyData
-        } catch {
-            print("ERROR 1", error)
-            return
-        }
-        URLSession.shared.dataTask(with: request) { data, _, error in
-            if let error {
-                print("ERROR 2", error.localizedDescription)
+    func ChangeSpeed(_ speed: Double) {
+        NetworkService.shared.emptyRequest(
+            router: .linearSpeed,
+            parameters: ["requiredLinearSpeed": speed]
+        ) { result in
+            switch result {
+            case .success(let str):
+                print(str)
                 return
+            case .failure(let error):
+                errorMessage = error.localizedDescription
+                showView = false
             }
-            print("SUCCES")
-        }.resume()
+        }
     }
 
-    func Post2() {
-        guard let url = URL(string: "http://192.168.29.106:2023/api/Station/rotationSpeed") else {
-            print("ERROR: url")
-            return
-        }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        do {
-            let bodyData = try JSONSerialization.data(
-                withJSONObject: ["requiredRotationSpeedClockwiseDegrees": 10]
-            )
-            request.httpBody = bodyData
-        } catch {
-            print("ERROR 1", error)
-            return
-        }
-        URLSession.shared.dataTask(with: request) { data, _, error in
-            if let error {
-                print("ERROR 2", error.localizedDescription)
-                return
+    func ChangeDirection(_ rotation: Double) {
+        NetworkService.shared.emptyRequest(
+            router: .rotationSpeed,
+            parameters: ["requiredRotationSpeedClockwiseDegrees": rotation]
+        ) { result in
+            switch result {
+            case .success(let str):
+                print(str)
+            case .failure(let error):
+                errorMessage = error.localizedDescription
+                showView = false
             }
-            print("SUCCES")
-        }.resume()
-    }
-
-    func Post3(_ speed: Double) {
-        print("CURRENT SPEED \(speed)")
-        guard let url = URL(string: "http://192.168.29.106:2023/api/Station/linearSpeed") else {
-            print("ERROR: url")
-            return
         }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        do {
-            let bodyData = try JSONSerialization.data(
-                withJSONObject: ["requiredLinearSpeed": speed]
-            )
-            request.httpBody = bodyData
-        } catch {
-            print("ERROR 1", error)
-            return
-        }
-        URLSession.shared.dataTask(with: request) { data, _, error in
-            if let error {
-                print("ERROR 2", error.localizedDescription)
-                return
-            }
-            print("SUCCESS")
-        }.resume()
     }
 }
 

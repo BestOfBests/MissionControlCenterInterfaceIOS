@@ -12,6 +12,7 @@ import Foundation
 enum Router {
     case station
     case planets
+    case linearSpeed
     case rotationSpeed
 }
 
@@ -28,9 +29,10 @@ extension Router {
     
     var endpoint: String {
         switch self {
-        case .station: return String.baseUrl + .station
-        case .planets: return String.baseUrl + .planets
-        case .rotationSpeed: return String.baseUrl + .rotationSpeed
+        case .station: return .baseUrl + .station
+        case .planets: return .baseUrl + .planets
+        case .linearSpeed: return .baseUrl + .linearSpeed
+        case .rotationSpeed: return .baseUrl + .rotationSpeed
         }
     }
 }
@@ -42,10 +44,11 @@ private extension String {
     static let baseUrl = String.serverHost + "/api"
     static let station = "/Station"
     static let planets = String.station + "/planets"
-    static let rotationSpeed = "Station/rotationSpeed"
+    static let linearSpeed = "/Station/linearSpeed"
+    static let rotationSpeed = "/Station/rotationSpeed"
 }
 
 extension String {
 
-    static let serverHost = "http://192.168.29.106:2023"
+    static let serverHost = "http://192.168.1.37:2023"
 }

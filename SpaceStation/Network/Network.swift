@@ -30,6 +30,7 @@ struct NetworkService {
                 urlComponents.queryItems = params.map { URLQueryItem(name: $0, value: "\($1)") }
                 request.url = urlComponents.url
             case .post:
+                request.httpMethod = "POST"
                 do {
                     let bodyData = try JSONSerialization.data(withJSONObject: params)
                     request.httpBody = bodyData
@@ -100,6 +101,52 @@ struct NetworkService {
                     completion(.failure(error))
                 }
                 return
+            }
+        }.resume()
+    }
+
+    func emptyRequest(
+        router: Router,
+        method: Method = .post,
+        parameters: [String: Any]?,
+        resultQueue: DispatchQueue = .main,
+        completion: @escaping (Result<String, Error>) -> Void
+    ) {
+        var request: URLRequest?
+        do {
+            request = try createRequest(router: router, method: method, parameters: parameters)
+        } catch {
+            completion(.failure(error))
+            return
+        }
+
+        guard let request = request else {
+            completion(.failure(URLError(.unknown)))
+            return
+        }
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                resultQueue.async {
+                    completion(.failure(error))
+                }
+                return
+            }
+            guard let response = response as? HTTPURLResponse else {
+                resultQueue.async {
+                    completion(.failure(URLError(.unknown)))
+                }
+                return
+            }
+            guard (200..<300).contains(response.statusCode) else {
+                resultQueue.async {
+                    completion(.failure(APIError.badStatusCode(response.statusCode)))
+                }
+                return
+            }
+
+            resultQueue.async {
+                completion(.success("Success"))
             }
         }.resume()
     }
